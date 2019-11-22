@@ -43,19 +43,19 @@ const fixedProgressBarCss = css`
         right: 0;
         z-index: 10;
     }   
-`
+`;
 
 const AxiosProgressIndicator = () => {
 
     const loaded = useAxiosProgressBar( Axios );
 
-    return (
+    return loaded === -1 ? null : (
         <LinearProgress
             css={fixedProgressBarCss}
-            value={loaded<1?loaded+1:loaded}
+            value={loaded}
             variant={loaded>0?"determinate":"indeterminate"}
         />
-    )
+    );
 }
 ```
 5. Profit!
