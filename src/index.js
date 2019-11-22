@@ -42,7 +42,7 @@ const useAxiosProgressBar = ( axiosInstance, delay = 200 ) => {
             progressTimer;
 
         const requestInterceptor = request.use( config => {
-
+            
             const id = Math.random() * 1e9 | 0;
 
             progressMap.set( id, {
