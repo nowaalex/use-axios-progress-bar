@@ -27,7 +27,7 @@ const GlobalProgressBar = () => {
     );
 }
 ```
-4. Or something more beautiful
+4. Or something more usable and beautiful
 ```javascript
 import Axios from "axios";
 import useAxiosProgressBar from "use-axios-progress-bar";
