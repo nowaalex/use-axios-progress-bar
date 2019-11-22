@@ -1,5 +1,5 @@
 {
-  "name": "useAxiosProgressBar",
+  "name": "use-axios-progress-bar",
   "version": "1.0.0",
   "main": "lib/index.js",
   "module": "lib/index.js",
@@ -7,7 +7,7 @@
     "build": "babel ./src --out-dir ./lib"
   },
   "description": "query progress react hook",
-  "repository": "git@github.com:nowaalex/useAxiosProgressBar.git",
+  "repository": "git@github.com:nowaalex/use-axios-progress-bar.git",
   "keywords": [
     "axios",
     "progress",
