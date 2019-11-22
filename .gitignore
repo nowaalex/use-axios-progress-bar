@@ -1,0 +1,15 @@
+.directory
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+.tags
+ehthumbs.db
+Thumbs.db
+desktop.ini
+chromedriver.log
+tests_output/
+
+**/node_modules/
+**/build/
