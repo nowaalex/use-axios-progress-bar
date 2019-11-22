@@ -53,7 +53,7 @@ const AxiosProgressIndicator = () => {
         <LinearProgress
             css={fixedProgressBarCss}
             value={loaded<1?loaded+1:loaded}
-            variant={loaded>0"determinate":"indeterminate"}
+            variant={loaded>0?"determinate":"indeterminate"}
         />
     )
 }
