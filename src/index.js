@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 const wrapEvent = ( curEventFn, newEventFn ) => {
     if( curEventFn ){
@@ -31,13 +32,17 @@ const calculateProgress = progressMap => {
     return loaded / total * 100 | 0;
 }
 
-const useAxiosProgressBar = ( axiosInstance, delay = 200 ) => {
+const useAxiosProgressBar = ({
+    axiosInstance = axios,
+    delay = 200
+} = {}) => {
 
     const [ progress, setProgress ] = useState( -1 );
 
     useEffect(() => {
         const progressMap = new Map();
         const { request } = axiosInstance.interceptors;
+
         let firstQueryStartTimestamp = 0,
             progressTimer;
 
@@ -54,6 +59,7 @@ const useAxiosProgressBar = ( axiosInstance, delay = 200 ) => {
             });
 
             if( progressMap.size === 1 ){
+                progressTimer = setTimeout(() => setProgress(calculateProgress(progressMap)), delay );
                 firstQueryStartTimestamp = performance.now();
             }
 
@@ -63,15 +69,8 @@ const useAxiosProgressBar = ( axiosInstance, delay = 200 ) => {
                     p.precise = true;
                     p[ `${prefix}Total` ] = total;
                     p[ `${prefix}Loaded` ] = loaded;
-                    
-                    const remainingTime = firstQueryStartTimestamp + delay - performance.now();
-                    clearTimeout( progressTimer );
-                    const curProgress = calculateProgress( progressMap );
-                    if( remainingTime <= 0 ){
-                        setProgress( curProgress );
-                    }
-                    else{
-                        progressTimer = setTimeout( setProgress, remainingTime, curProgress );
+                    if( performance.now() - firstQueryStartTimestamp > delay ){
+                        setProgress(calculateProgress( progressMap ));
                     }
                 }
             }
@@ -98,6 +97,7 @@ const useAxiosProgressBar = ( axiosInstance, delay = 200 ) => {
                 It is impossible to unattach config.onDownloadProgress/onUploadprogress in clean way.    
             */
             progressMap.clear();
+            setProgress( -1 );
             clearTimeout( progressTimer );
             request.eject( requestInterceptor );
         }

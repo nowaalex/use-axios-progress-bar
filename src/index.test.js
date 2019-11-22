@@ -18,13 +18,13 @@ mockAdapterInstance.onGet( "/20" ).reply( config => {
 const sleep = ms => new Promise( resolve => setTimeout( resolve, ms ));
 
 test( "equals -1 on initial render", () => {
-    const p = renderHook(() => useAxiosProgressBar( axios, 10 ));
+    const p = renderHook(() => useAxiosProgressBar({ delay: 10 }));
     expect(p.result.current).toBe(-1);
 });
 
 test( "equals 0 when axios starts loading", () => {
     expect.assertions( 1 );
-    const p = renderHook(() => useAxiosProgressBar( axios, 10 ));
+    const p = renderHook(() => useAxiosProgressBar({ delay: 10 }));
     act(() => {
         axios.get( "/ok" );
     });
@@ -33,7 +33,7 @@ test( "equals 0 when axios starts loading", () => {
 
 test( "equals 20 when loaded 20/100", () => {
     expect.assertions( 1 );
-    const p = renderHook(() => useAxiosProgressBar( axios, 10 ));
+    const p = renderHook(() => useAxiosProgressBar({ delay: 10 }));
     act(() => {
         axios.get( "/20" );
     });

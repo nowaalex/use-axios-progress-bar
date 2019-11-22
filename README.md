@@ -4,17 +4,10 @@
 2. Find the progress bar component of your dream
 3. Use it
 ```javascript
-//import your axios instance(or just global axios)
-import TrackedAxiosInstance from "axios";
 import useAxiosProgressBar from "use-axios-progress-bar";
 
-/*
-    In DELAY ms minimum after query sent progress will start moving on(smth like throttling to avoid frequent irritating twitches)
-*/
-const DELAY = 200;
-
 const GlobalProgressBar = () => {
-    const currentProgress = useAxiosProgressBar( TrackedAxiosInstance, DELAY );
+    const currentProgress = useAxiosProgressBar();
 
     /*
         -1: no activity
@@ -29,7 +22,7 @@ const GlobalProgressBar = () => {
 ```
 4. Or something more usable and beautiful
 ```javascript
-import Axios from "axios";
+import Axios from "axiosInstance";
 import useAxiosProgressBar from "use-axios-progress-bar";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import { css } from "@emotion/core";
@@ -47,7 +40,10 @@ const fixedProgressBarCss = css`
 
 const AxiosProgressIndicator = () => {
 
-    const loaded = useAxiosProgressBar( Axios );
+    const loaded = useAxiosProgressBar({
+        axiosInstance: Axios,
+        delay: 500
+    });
 
     return loaded === -1 ? null : (
         <LinearProgress
